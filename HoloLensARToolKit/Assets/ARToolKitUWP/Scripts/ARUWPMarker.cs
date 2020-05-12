@@ -334,14 +334,6 @@ public class ARUWPMarker : MonoBehaviour{
     /// </summary>
     public static Matrix4x4 calibrationMatrix = Matrix4x4.identity;
 
-
-    /// <summary>
-    /// Basic lock management - when activated, tracking is turned off when a marker is detected with a robust pose
-    /// (ie two consecutive poses are close to each other, within a set treshold ie 1mm)
-    /// </summary>
-    private bool locked = false;
-    private Vector3 lastPosition;
-
 #if !UNITY_EDITOR && UNITY_METRO
 
 
@@ -381,21 +373,6 @@ public class ARUWPMarker : MonoBehaviour{
                     target.SetMatrix4x4(latestTrackingInfo.locatableCameraToWorld * latestTransMatrix);
                 }
             }
-
-            float distance = (target.transform.localPosition - lastPosition).magnitude;
-            if (controller.autoLock && distance < controller.threshold)
-                {
-                    Debug.Log("ARUWPMarker: Locked marker at position " + lastPosition + " at threshold " + distance.ToString("F4"));
-                    controller.Pause();
-                    locked = true;
-                    //Reset last tracked position for future realignment to avoid immediate locking if tracking is reinitialized
-                    lastPosition = Vector3.zero;
-                }
-                else {
-                    Debug.Log("ARUWPMarker: Found marker but tracking error exceeds threshold)" + controller.threshold.ToString("F4") + "): " + distance.ToString("F4") );
-                    lastPosition = target.transform.localPosition;
-                }
-
         }
 
         signalTrackingUpdated = false;

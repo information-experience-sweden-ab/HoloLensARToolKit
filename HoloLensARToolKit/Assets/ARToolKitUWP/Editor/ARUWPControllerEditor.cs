@@ -51,9 +51,7 @@ public class ARUWPControllerEditor : Editor {
         imageProcMode_Prop,
         trackFPS_Prop,
         renderFPS_Prop, 
-        showOptions_Prop,
-        autoLock_Prop,
-        autoLockThreshold_Prop;
+        showOptions_Prop;
 
     public void OnEnable() {
         useCameraParamFile_Prop = serializedObject.FindProperty("useCameraParamFile");
@@ -68,8 +66,6 @@ public class ARUWPControllerEditor : Editor {
         trackFPS_Prop = serializedObject.FindProperty("trackFPS");
         renderFPS_Prop = serializedObject.FindProperty("renderFPS");
         showOptions_Prop = serializedObject.FindProperty("showOptions");
-        autoLock_Prop = serializedObject.FindProperty("autoLock");
-        autoLockThreshold_Prop = serializedObject.FindProperty("autoLockThreshold");
     }
 
     public override void OnInspectorGUI() {
@@ -102,8 +98,6 @@ public class ARUWPControllerEditor : Editor {
         EditorGUILayout.PropertyField(showOptions_Prop, new GUIContent("Advanced Options"));
         bool showOptions = showOptions_Prop.boolValue;
         if (showOptions) {
-            EditorGUILayout.PropertyField(autoLock_Prop, new GUIContent("Auto Lock"));
-            EditorGUILayout.PropertyField(autoLockThreshold_Prop, new GUIContent("Auto Lock Threshold"));
             EditorGUILayout.PropertyField(borderSize_Prop, new GUIContent("Border Size"));
             EditorGUILayout.PropertyField(labelingMode_Prop, new GUIContent("Labeling Mode"));
             EditorGUILayout.PropertyField(imageProcMode_Prop, new GUIContent("Image Processing Mode"));
