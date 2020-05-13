@@ -321,7 +321,12 @@ public class ARUWPController : MonoBehaviour {
         return 1000.0f / trackDeltaTime;
     }
 
-
+    /// <summary>
+    /// Basic lock management - when activated, tracking is turned off when a marker is detected with a robust pose
+    /// (ie two consecutive poses are close to each other, within a set treshold ie 1mm)
+    /// </summary>
+    public bool autoLock = false;
+    public float autoLockThreshold = 0.001f;
 
 #if !UNITY_EDITOR && UNITY_METRO
     [ComImport]
